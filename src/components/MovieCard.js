@@ -1,11 +1,10 @@
-
 import React, { useContext } from 'react';
 import { Card, CardMedia, CardContent, Typography, CardActions, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import WatchlistContext from '../context/WatchlistContext';
 
-function MovieCard({ movie }) {
-  const { addMovieToWatchlist } = useContext(WatchlistContext);
+function MovieCard({ movie, isInWatchlist }) {
+  const { addMovieToWatchlist, toggleWatchedStatus } = useContext(WatchlistContext);
 
   return (
     <Card>
@@ -27,9 +26,15 @@ function MovieCard({ movie }) {
         <Button size="small" component={Link} to={`/movie/${movie.imdbID}`}>
           Learn More
         </Button>
-        <Button size="small" onClick={() => addMovieToWatchlist(movie)}>
-          Add to Watchlist
-        </Button>
+        {isInWatchlist ? (
+          <Button size="small" onClick={() => toggleWatchedStatus(movie.imdbID)}>
+            {movie.watched ? 'Mark as Unwatched' : 'Mark as Watched'}
+          </Button>
+        ) : (
+          <Button size="small" onClick={() => addMovieToWatchlist(movie)}>
+            Add to Watchlist
+          </Button>
+        )}
       </CardActions>
     </Card>
   );

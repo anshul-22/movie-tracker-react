@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Typography, Card, CardMedia, CardContent } from '@mui/material';
 
-function MovieDetails() {
+const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
 
